@@ -11,29 +11,23 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
-    - uses: actions/checkout@v4  # Updated version
-    
-    # Check if index.html exists
-    - name: Check for index.html
-      run: |
-        if [ ! -f public/index.html ]; then
-          echo "❌ Error: index.html not found in the public/ folder."
-          exit 1
-    
-    - name: Setup Pages
-      uses: actions/configure-pages@v4  # Updated version
-      
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v1  # Corrected to a valid version
-      with:
-        path: 'public/'
-        
+      - uses: actions/checkout@v4
+      - name: Check for index.html
+        run: |
+          if [ ! -f public/index.html ]; then
+            echo "❌ Error: index.html not found in the public/ folder."
+            exit 1
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'public/'
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v1
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
