@@ -1,0 +1,40 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    # Verifica se index.html existe
+    - name: Check for index.html
+      run: |
+        if [ ! -f public/index.html ]; then
+          echo "❌ Erro: index.html não encontrado na pasta public/"
+          exit 1
+        fi
+    
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: 'public/'
+        
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v2
