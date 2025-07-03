@@ -1,3 +1,3 @@
-# curso-git-und-4
+# github-pages-tutorial
 
-Exemplo de pipeline integrada com o gitlab pages.
+Exemplo de pipeline integrada com o github pages.
